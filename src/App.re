@@ -10,12 +10,11 @@ type action =
   | ChangeNamePlayer1Awayteam(string)
   | ChangeNamePlayer2Awayteam(string)
   | UNDO
-  | AddNote
+  | AddNote(string)
   | ChangeJerseyColorPlayer1Hometeam(string)
   | ChangeJerseyColorPlayer2Hometeam(string)
   | ChangeJerseyColorPlayer1Awayteam(string)
   | ChangeJerseyColorPlayer2Awayteam(string);
-
 
 /* State declaration */
 type state = {
@@ -29,8 +28,8 @@ type state = {
   jerseyColorPlayer2Hometeam: string,
   jerseyColorPlayer1Awayteam: string,
   jerseyColorPlayer2Awayteam: string,
-  notes: List(string),
-  actions: List(action),
+  notes: list(string),
+  actions: list(action),
 };
 
 let initialState: state = {
@@ -44,6 +43,8 @@ let initialState: state = {
   jerseyColorPlayer2Hometeam: "",
   jerseyColorPlayer1Awayteam: "",
   jerseyColorPlayer2Awayteam: "",
+  notes: [],
+  actions: [],
 };
 
 let reducer = (state, action) => {
@@ -83,14 +84,8 @@ let reducer = (state, action) => {
       ...state,
       jerseyColorPlayer2Awayteam: value,
     }
-  | UNDO => {
-      ...state,
-      jerseyColorPlayer2Awayteam: value,
-    }
-  | AddNote(value) => {
-      ...state,
-      jerseyColorPlayer2Awayteam: value,
-    }    
+  | UNDO => {...state, actions: [UNDO, ...state.actions]}
+  | AddNote(value) => {...state, jerseyColorPlayer2Awayteam: value}
   };
 };
 
