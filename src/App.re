@@ -1,5 +1,22 @@
 let str = ReasonReact.string;
 let str_int = number => str(string_of_int(number));
+
+/* Action declaration */
+type action =
+  | AddPointsHometeam
+  | AddPointsAwayteam
+  | ChangeNamePlayer1Hometeam(string)
+  | ChangeNamePlayer2Hometeam(string)
+  | ChangeNamePlayer1Awayteam(string)
+  | ChangeNamePlayer2Awayteam(string)
+  | UNDO
+  | AddNote
+  | ChangeJerseyColorPlayer1Hometeam(string)
+  | ChangeJerseyColorPlayer2Hometeam(string)
+  | ChangeJerseyColorPlayer1Awayteam(string)
+  | ChangeJerseyColorPlayer2Awayteam(string);
+
+
 /* State declaration */
 type state = {
   scoreH: int,
@@ -8,6 +25,12 @@ type state = {
   namePlayer2Hometeam: string,
   namePlayer1Awayteam: string,
   namePlayer2Awayteam: string,
+  jerseyColorPlayer1Hometeam: string,
+  jerseyColorPlayer2Hometeam: string,
+  jerseyColorPlayer1Awayteam: string,
+  jerseyColorPlayer2Awayteam: string,
+  notes: List(string),
+  actions: List(action),
 };
 
 let initialState: state = {
@@ -17,16 +40,11 @@ let initialState: state = {
   namePlayer2Hometeam: "",
   namePlayer1Awayteam: "",
   namePlayer2Awayteam: "",
+  jerseyColorPlayer1Hometeam: "",
+  jerseyColorPlayer2Hometeam: "",
+  jerseyColorPlayer1Awayteam: "",
+  jerseyColorPlayer2Awayteam: "",
 };
-
-/* Action declaration */
-type action =
-  | AddPointsHometeam
-  | AddPointsAwayteam
-  | ChangeNamePlayer1Hometeam(string)
-  | ChangeNamePlayer2Hometeam(string)
-  | ChangeNamePlayer1Awayteam(string)
-  | ChangeNamePlayer2Awayteam(string);
 
 let reducer = (state, action) => {
   Js.log(state);
@@ -49,6 +67,30 @@ let reducer = (state, action) => {
       ...state,
       namePlayer2Awayteam: value,
     }
+  | ChangeJerseyColorPlayer1Hometeam(value) => {
+      ...state,
+      jerseyColorPlayer1Hometeam: value,
+    }
+  | ChangeJerseyColorPlayer2Hometeam(value) => {
+      ...state,
+      jerseyColorPlayer2Hometeam: value,
+    }
+  | ChangeJerseyColorPlayer1Awayteam(value) => {
+      ...state,
+      jerseyColorPlayer1Awayteam: value,
+    }
+  | ChangeJerseyColorPlayer2Awayteam(value) => {
+      ...state,
+      jerseyColorPlayer2Awayteam: value,
+    }
+  | UNDO => {
+      ...state,
+      jerseyColorPlayer2Awayteam: value,
+    }
+  | AddNote(value) => {
+      ...state,
+      jerseyColorPlayer2Awayteam: value,
+    }    
   };
 };
 
@@ -98,6 +140,7 @@ let make = () => {
         }
       />
     </form>
+    <MaterialUi_Typography variant=`H6> "Icon Types:" </MaterialUi_Typography>
     <form>
       <label htmlFor="player2Awayteam"> {str("Player2 Awayteam")} </label>
       <input
