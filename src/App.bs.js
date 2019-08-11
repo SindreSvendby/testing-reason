@@ -5,11 +5,14 @@ var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
+var MaterialUi_Grid = require("@jsiebern/bs-material-ui/src/MaterialUi_Grid.bs.js");
 var Core = require("@material-ui/core");
 var MaterialUi_AppBar = require("@jsiebern/bs-material-ui/src/MaterialUi_AppBar.bs.js");
 var MaterialUi_Button = require("@jsiebern/bs-material-ui/src/MaterialUi_Button.bs.js");
 var MaterialUi_Toolbar = require("@jsiebern/bs-material-ui/src/MaterialUi_Toolbar.bs.js");
+var MaterialUi_IconButton = require("@jsiebern/bs-material-ui/src/MaterialUi_IconButton.bs.js");
 var MaterialUi_Typography = require("@jsiebern/bs-material-ui/src/MaterialUi_Typography.bs.js");
+var Menu = require("@material-ui/icons/Menu");
 
 function str(prim) {
   return prim;
@@ -360,7 +363,7 @@ function App(Props) {
   var state = match[0];
   return React.createElement("div", undefined, React.createElement("div", {
                   className: "test"
-                }), React.createElement(Core.AppBar, MaterialUi_AppBar.makeProps(Caml_option.some(React.createElement(Core.Toolbar, MaterialUi_Toolbar.makeProps(Caml_option.some(null), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* () */0), React.createElement(Core.Typography, MaterialUi_Typography.makeProps(undefined, "News", undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* H6 */16110, undefined, undefined, undefined, undefined, undefined, /* () */0)), React.createElement(Core.Button, MaterialUi_Button.makeProps("Login", undefined, /* Inherit */-72987685, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* () */0)))), undefined, undefined, /* Static */982536398, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* () */0)), React.createElement("div", undefined, String(state[/* scoreH */0])), React.createElement("button", {
+                }), React.createElement(Core.AppBar, MaterialUi_AppBar.makeProps(Caml_option.some(React.createElement(Core.Toolbar, MaterialUi_Toolbar.makeProps(Caml_option.some(null), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* () */0), React.createElement(Core.IconButton, MaterialUi_IconButton.makeProps(Caml_option.some(React.createElement(Menu.default, { })), undefined, /* Inherit */-72987685, undefined, undefined, undefined, /* Start */389604418, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* () */0)), React.createElement(Core.Typography, MaterialUi_Typography.makeProps(undefined, "News", undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* H6 */16110, undefined, undefined, undefined, undefined, undefined, /* () */0)), React.createElement(Core.Button, MaterialUi_Button.makeProps("Login", undefined, /* Inherit */-72987685, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* () */0)))), undefined, undefined, /* Static */982536398, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* () */0)), React.createElement(Core.Grid, MaterialUi_Grid.makeProps(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* () */0)), React.createElement("div", undefined, String(state[/* scoreH */0])), React.createElement("button", {
                   onClick: (function (_event) {
                       return Curry._1(dispatch, /* AddPointsHometeam */0);
                     })
@@ -399,8 +402,11 @@ function App(Props) {
                     })));
 }
 
+var MenuIcon = 0;
+
 var make = App;
 
+exports.MenuIcon = MenuIcon;
 exports.str = str;
 exports.str_int = str_int;
 exports.initialState = initialState;

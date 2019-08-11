@@ -1,3 +1,7 @@
+open MscharleyBsMaterialUiIcons;
+
+module MenuIcon = Menu.Filled;
+
 let str = ReasonReact.string;
 let str_int = number => str(string_of_int(number));
 
@@ -136,18 +140,6 @@ let reducer = (state, action) => {
   };
 };
 
-// <AppBar position="static">
-//         <Toolbar>
-//           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-//             <MenuIcon />
-//           </IconButton>
-//           <Typography variant="h6" className={classes.title}>
-//             News
-//           </Typography>
-//           <Button color="inherit">Login</Button>
-//         </Toolbar>
-//       </AppBar>
-
 [@react.component]
 let make = () => {
   let (state, dispatch) = React.useReducer(reducer, initialState);
@@ -155,13 +147,24 @@ let make = () => {
     <div className="test" />
     <MaterialUi_AppBar position=`Static>
       <MaterialUi_Toolbar>
-     <MaterialUi_IconButton edge=`Start color=`Inherit aria-label="menu">
-        <MscharleyBsMaterialUiIcons.IconButton.Filled />
-     </MaterialUi_IconButton>
+        <MaterialUi_IconButton edge=`Start color=`Inherit>
+          <MenuIcon />
+        </MaterialUi_IconButton>
         <MaterialUi_Typography variant=`H6> "News" </MaterialUi_Typography>
         <MaterialUi_Button color=`Inherit> "Login" </MaterialUi_Button>
       </MaterialUi_Toolbar>
     </MaterialUi_AppBar>
+    <MaterialUi_Grid `Container spacing=3>
+      <MaterialUi_Grid item xs=12>
+        <MaterialUi_Paper> "xs=12" </MaterialUi_Paper>
+      </MaterialUi_Grid>
+      <MaterialUi_Grid item xs=6>
+        <MaterialUi_Paper> "xs=6" </MaterialUi_Paper>
+      </MaterialUi_Grid>
+      <MaterialUi_Grid item xs=6>
+        <MaterialUi_Paper> "xs=6" </MaterialUi_Paper>
+      </MaterialUi_Grid>
+    </MaterialUi_Grid>
     <div> {str_int(state.scoreH)} </div>
     <button onClick={_event => dispatch(AddPointsHometeam)}>
       {str("Add Point Hometeam")}
