@@ -1,6 +1,23 @@
 let str = ReasonReact.string;
 let str_int = number => str(string_of_int(number));
 
+type screen =
+  | GameScreen
+  | HometeamScreen
+  | AwayScreen;
+
+type player =
+  | Player1Hometeam
+  | Player2Hometeam
+  | Player1Awayteam
+  | Player2Awayteam;
+
+type order =
+  | One
+  | Two
+  | Three
+  | Four;
+
 /* Action declaration */
 type action =
   | AddPointsHometeam
@@ -14,7 +31,9 @@ type action =
   | ChangeJerseyColorPlayer1Hometeam(string)
   | ChangeJerseyColorPlayer2Hometeam(string)
   | ChangeJerseyColorPlayer1Awayteam(string)
-  | ChangeJerseyColorPlayer2Awayteam(string);
+  | ChangeJerseyColorPlayer2Awayteam(string)
+  | ShowView(screen)
+  | ServiceOrder(player);
 
 /* State declaration */
 type state = {
@@ -30,11 +49,15 @@ type state = {
   jerseyColorPlayer2Awayteam: string,
   notes: list(string),
   actions: list(action),
+  screen,
+  serviceOrderSet1: list(player),
+  serviceOrderSet2: list(player),
+  serviceOrderSet3: list(player),
 };
 
 let initialState: state = {
   scoreA: 0,
-  scoreH: 0,
+  scoreH: 1,
   namePlayer1Hometeam: "",
   namePlayer2Hometeam: "",
   namePlayer1Awayteam: "",
@@ -45,6 +68,10 @@ let initialState: state = {
   jerseyColorPlayer2Awayteam: "",
   notes: [],
   actions: [],
+  screen: GameScreen,
+  serviceOrderSet1: [],
+  serviceOrderSet2: [],
+  serviceOrderSet3: [],
 };
 
 let reducer = (state, action) => {
@@ -86,14 +113,55 @@ let reducer = (state, action) => {
     }
   | UNDO => {...state, actions: [UNDO, ...state.actions]}
   | AddNote(value) => {...state, jerseyColorPlayer2Awayteam: value}
+  | ServiceOrder(player) =>
+    switch (player) {
+    | Player1Hometeam => {
+        ...state,
+        serviceOrderSet1: [Player2Hometeam, ...state.serviceOrderSet1],
+      }
+    | Player2Hometeam => {
+        ...state,
+        serviceOrderSet1: [Player2Hometeam, ...state.serviceOrderSet1],
+      }
+    | Player1Awayteam => {
+        ...state,
+        serviceOrderSet1: [Player1Awayteam, ...state.serviceOrderSet1],
+      }
+    | Player2Awayteam => {
+        ...state,
+        serviceOrderSet1: [Player2Awayteam, ...state.serviceOrderSet1],
+      }
+    }
+  | ShowView(screen) => {...state, screen}
   };
 };
+
+// <AppBar position="static">
+//         <Toolbar>
+//           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+//             <MenuIcon />
+//           </IconButton>
+//           <Typography variant="h6" className={classes.title}>
+//             News
+//           </Typography>
+//           <Button color="inherit">Login</Button>
+//         </Toolbar>
+//       </AppBar>
 
 [@react.component]
 let make = () => {
   let (state, dispatch) = React.useReducer(reducer, initialState);
-
   <div>
+    <div className="test" />
+    <MaterialUi_AppBar position=`Static>
+      <MaterialUi_Toolbar>
+     <MaterialUi_IconButton edge=`Start color=`Inherit aria-label="menu">
+        <MscharleyBsMaterialUiIcons.IconButton.Filled />
+     </MaterialUi_IconButton>
+        <MaterialUi_Typography variant=`H6> "News" </MaterialUi_Typography>
+        <MaterialUi_Button color=`Inherit> "Login" </MaterialUi_Button>
+      </MaterialUi_Toolbar>
+    </MaterialUi_AppBar>
     <div> {str_int(state.scoreH)} </div>
     <button onClick={_event => dispatch(AddPointsHometeam)}>
       {str("Add Point Hometeam")}

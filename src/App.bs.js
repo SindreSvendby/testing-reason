@@ -4,7 +4,11 @@
 var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
+var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Core = require("@material-ui/core");
+var MaterialUi_AppBar = require("@jsiebern/bs-material-ui/src/MaterialUi_AppBar.bs.js");
+var MaterialUi_Button = require("@jsiebern/bs-material-ui/src/MaterialUi_Button.bs.js");
+var MaterialUi_Toolbar = require("@jsiebern/bs-material-ui/src/MaterialUi_Toolbar.bs.js");
 var MaterialUi_Typography = require("@jsiebern/bs-material-ui/src/MaterialUi_Typography.bs.js");
 
 function str(prim) {
@@ -16,7 +20,7 @@ function str_int(number) {
 }
 
 var initialState = /* record */[
-  /* scoreH */0,
+  /* scoreH */1,
   /* scoreA */0,
   /* namePlayer1Hometeam */"",
   /* namePlayer2Hometeam */"",
@@ -27,12 +31,15 @@ var initialState = /* record */[
   /* jerseyColorPlayer1Awayteam */"",
   /* jerseyColorPlayer2Awayteam */"",
   /* notes : [] */0,
-  /* actions : [] */0
+  /* actions : [] */0,
+  /* screen : GameScreen */0,
+  /* serviceOrderSet1 : [] */0,
+  /* serviceOrderSet2 : [] */0,
+  /* serviceOrderSet3 : [] */0
 ];
 
 function reducer(state, action) {
   console.log(state);
-  var exit = 0;
   if (typeof action === "number") {
     switch (action) {
       case 0 : 
@@ -48,7 +55,11 @@ function reducer(state, action) {
                   /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
                   /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
                   /* notes */state[/* notes */10],
-                  /* actions */state[/* actions */11]
+                  /* actions */state[/* actions */11],
+                  /* screen */state[/* screen */12],
+                  /* serviceOrderSet1 */state[/* serviceOrderSet1 */13],
+                  /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                  /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
                 ];
       case 1 : 
           return /* record */[
@@ -63,7 +74,11 @@ function reducer(state, action) {
                   /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
                   /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
                   /* notes */state[/* notes */10],
-                  /* actions */state[/* actions */11]
+                  /* actions */state[/* actions */11],
+                  /* screen */state[/* screen */12],
+                  /* serviceOrderSet1 */state[/* serviceOrderSet1 */13],
+                  /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                  /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
                 ];
       case 2 : 
           return /* record */[
@@ -81,7 +96,11 @@ function reducer(state, action) {
                   /* actions : :: */[
                     /* UNDO */2,
                     state[/* actions */11]
-                  ]
+                  ],
+                  /* screen */state[/* screen */12],
+                  /* serviceOrderSet1 */state[/* serviceOrderSet1 */13],
+                  /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                  /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
                 ];
       
     }
@@ -100,7 +119,11 @@ function reducer(state, action) {
                   /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
                   /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
                   /* notes */state[/* notes */10],
-                  /* actions */state[/* actions */11]
+                  /* actions */state[/* actions */11],
+                  /* screen */state[/* screen */12],
+                  /* serviceOrderSet1 */state[/* serviceOrderSet1 */13],
+                  /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                  /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
                 ];
       case 1 : 
           return /* record */[
@@ -115,7 +138,11 @@ function reducer(state, action) {
                   /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
                   /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
                   /* notes */state[/* notes */10],
-                  /* actions */state[/* actions */11]
+                  /* actions */state[/* actions */11],
+                  /* screen */state[/* screen */12],
+                  /* serviceOrderSet1 */state[/* serviceOrderSet1 */13],
+                  /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                  /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
                 ];
       case 2 : 
           return /* record */[
@@ -130,7 +157,11 @@ function reducer(state, action) {
                   /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
                   /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
                   /* notes */state[/* notes */10],
-                  /* actions */state[/* actions */11]
+                  /* actions */state[/* actions */11],
+                  /* screen */state[/* screen */12],
+                  /* serviceOrderSet1 */state[/* serviceOrderSet1 */13],
+                  /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                  /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
                 ];
       case 3 : 
           return /* record */[
@@ -145,7 +176,11 @@ function reducer(state, action) {
                   /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
                   /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
                   /* notes */state[/* notes */10],
-                  /* actions */state[/* actions */11]
+                  /* actions */state[/* actions */11],
+                  /* screen */state[/* screen */12],
+                  /* serviceOrderSet1 */state[/* serviceOrderSet1 */13],
+                  /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                  /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
                 ];
       case 5 : 
           return /* record */[
@@ -160,7 +195,11 @@ function reducer(state, action) {
                   /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
                   /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
                   /* notes */state[/* notes */10],
-                  /* actions */state[/* actions */11]
+                  /* actions */state[/* actions */11],
+                  /* screen */state[/* screen */12],
+                  /* serviceOrderSet1 */state[/* serviceOrderSet1 */13],
+                  /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                  /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
                 ];
       case 6 : 
           return /* record */[
@@ -175,7 +214,11 @@ function reducer(state, action) {
                   /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
                   /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
                   /* notes */state[/* notes */10],
-                  /* actions */state[/* actions */11]
+                  /* actions */state[/* actions */11],
+                  /* screen */state[/* screen */12],
+                  /* serviceOrderSet1 */state[/* serviceOrderSet1 */13],
+                  /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                  /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
                 ];
       case 7 : 
           return /* record */[
@@ -190,39 +233,134 @@ function reducer(state, action) {
                   /* jerseyColorPlayer1Awayteam */action[0],
                   /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
                   /* notes */state[/* notes */10],
-                  /* actions */state[/* actions */11]
+                  /* actions */state[/* actions */11],
+                  /* screen */state[/* screen */12],
+                  /* serviceOrderSet1 */state[/* serviceOrderSet1 */13],
+                  /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                  /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
                 ];
       case 4 : 
       case 8 : 
-          exit = 1;
-          break;
+          return /* record */[
+                  /* scoreH */state[/* scoreH */0],
+                  /* scoreA */state[/* scoreA */1],
+                  /* namePlayer1Hometeam */state[/* namePlayer1Hometeam */2],
+                  /* namePlayer2Hometeam */state[/* namePlayer2Hometeam */3],
+                  /* namePlayer1Awayteam */state[/* namePlayer1Awayteam */4],
+                  /* namePlayer2Awayteam */state[/* namePlayer2Awayteam */5],
+                  /* jerseyColorPlayer1Hometeam */state[/* jerseyColorPlayer1Hometeam */6],
+                  /* jerseyColorPlayer2Hometeam */state[/* jerseyColorPlayer2Hometeam */7],
+                  /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
+                  /* jerseyColorPlayer2Awayteam */action[0],
+                  /* notes */state[/* notes */10],
+                  /* actions */state[/* actions */11],
+                  /* screen */state[/* screen */12],
+                  /* serviceOrderSet1 */state[/* serviceOrderSet1 */13],
+                  /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                  /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
+                ];
+      case 9 : 
+          return /* record */[
+                  /* scoreH */state[/* scoreH */0],
+                  /* scoreA */state[/* scoreA */1],
+                  /* namePlayer1Hometeam */state[/* namePlayer1Hometeam */2],
+                  /* namePlayer2Hometeam */state[/* namePlayer2Hometeam */3],
+                  /* namePlayer1Awayteam */state[/* namePlayer1Awayteam */4],
+                  /* namePlayer2Awayteam */state[/* namePlayer2Awayteam */5],
+                  /* jerseyColorPlayer1Hometeam */state[/* jerseyColorPlayer1Hometeam */6],
+                  /* jerseyColorPlayer2Hometeam */state[/* jerseyColorPlayer2Hometeam */7],
+                  /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
+                  /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
+                  /* notes */state[/* notes */10],
+                  /* actions */state[/* actions */11],
+                  /* screen */action[0],
+                  /* serviceOrderSet1 */state[/* serviceOrderSet1 */13],
+                  /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                  /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
+                ];
+      case 10 : 
+          switch (action[0]) {
+            case 0 : 
+            case 1 : 
+                return /* record */[
+                        /* scoreH */state[/* scoreH */0],
+                        /* scoreA */state[/* scoreA */1],
+                        /* namePlayer1Hometeam */state[/* namePlayer1Hometeam */2],
+                        /* namePlayer2Hometeam */state[/* namePlayer2Hometeam */3],
+                        /* namePlayer1Awayteam */state[/* namePlayer1Awayteam */4],
+                        /* namePlayer2Awayteam */state[/* namePlayer2Awayteam */5],
+                        /* jerseyColorPlayer1Hometeam */state[/* jerseyColorPlayer1Hometeam */6],
+                        /* jerseyColorPlayer2Hometeam */state[/* jerseyColorPlayer2Hometeam */7],
+                        /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
+                        /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
+                        /* notes */state[/* notes */10],
+                        /* actions */state[/* actions */11],
+                        /* screen */state[/* screen */12],
+                        /* serviceOrderSet1 : :: */[
+                          /* Player2Hometeam */1,
+                          state[/* serviceOrderSet1 */13]
+                        ],
+                        /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                        /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
+                      ];
+            case 2 : 
+                return /* record */[
+                        /* scoreH */state[/* scoreH */0],
+                        /* scoreA */state[/* scoreA */1],
+                        /* namePlayer1Hometeam */state[/* namePlayer1Hometeam */2],
+                        /* namePlayer2Hometeam */state[/* namePlayer2Hometeam */3],
+                        /* namePlayer1Awayteam */state[/* namePlayer1Awayteam */4],
+                        /* namePlayer2Awayteam */state[/* namePlayer2Awayteam */5],
+                        /* jerseyColorPlayer1Hometeam */state[/* jerseyColorPlayer1Hometeam */6],
+                        /* jerseyColorPlayer2Hometeam */state[/* jerseyColorPlayer2Hometeam */7],
+                        /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
+                        /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
+                        /* notes */state[/* notes */10],
+                        /* actions */state[/* actions */11],
+                        /* screen */state[/* screen */12],
+                        /* serviceOrderSet1 : :: */[
+                          /* Player1Awayteam */2,
+                          state[/* serviceOrderSet1 */13]
+                        ],
+                        /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                        /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
+                      ];
+            case 3 : 
+                return /* record */[
+                        /* scoreH */state[/* scoreH */0],
+                        /* scoreA */state[/* scoreA */1],
+                        /* namePlayer1Hometeam */state[/* namePlayer1Hometeam */2],
+                        /* namePlayer2Hometeam */state[/* namePlayer2Hometeam */3],
+                        /* namePlayer1Awayteam */state[/* namePlayer1Awayteam */4],
+                        /* namePlayer2Awayteam */state[/* namePlayer2Awayteam */5],
+                        /* jerseyColorPlayer1Hometeam */state[/* jerseyColorPlayer1Hometeam */6],
+                        /* jerseyColorPlayer2Hometeam */state[/* jerseyColorPlayer2Hometeam */7],
+                        /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
+                        /* jerseyColorPlayer2Awayteam */state[/* jerseyColorPlayer2Awayteam */9],
+                        /* notes */state[/* notes */10],
+                        /* actions */state[/* actions */11],
+                        /* screen */state[/* screen */12],
+                        /* serviceOrderSet1 : :: */[
+                          /* Player2Awayteam */3,
+                          state[/* serviceOrderSet1 */13]
+                        ],
+                        /* serviceOrderSet2 */state[/* serviceOrderSet2 */14],
+                        /* serviceOrderSet3 */state[/* serviceOrderSet3 */15]
+                      ];
+            
+          }
       
     }
   }
-  if (exit === 1) {
-    return /* record */[
-            /* scoreH */state[/* scoreH */0],
-            /* scoreA */state[/* scoreA */1],
-            /* namePlayer1Hometeam */state[/* namePlayer1Hometeam */2],
-            /* namePlayer2Hometeam */state[/* namePlayer2Hometeam */3],
-            /* namePlayer1Awayteam */state[/* namePlayer1Awayteam */4],
-            /* namePlayer2Awayteam */state[/* namePlayer2Awayteam */5],
-            /* jerseyColorPlayer1Hometeam */state[/* jerseyColorPlayer1Hometeam */6],
-            /* jerseyColorPlayer2Hometeam */state[/* jerseyColorPlayer2Hometeam */7],
-            /* jerseyColorPlayer1Awayteam */state[/* jerseyColorPlayer1Awayteam */8],
-            /* jerseyColorPlayer2Awayteam */action[0],
-            /* notes */state[/* notes */10],
-            /* actions */state[/* actions */11]
-          ];
-  }
-  
 }
 
 function App(Props) {
   var match = React.useReducer(reducer, initialState);
   var dispatch = match[1];
   var state = match[0];
-  return React.createElement("div", undefined, React.createElement("div", undefined, String(state[/* scoreH */0])), React.createElement("button", {
+  return React.createElement("div", undefined, React.createElement("div", {
+                  className: "test"
+                }), React.createElement(Core.AppBar, MaterialUi_AppBar.makeProps(Caml_option.some(React.createElement(Core.Toolbar, MaterialUi_Toolbar.makeProps(Caml_option.some(null), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* () */0), React.createElement(Core.Typography, MaterialUi_Typography.makeProps(undefined, "News", undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* H6 */16110, undefined, undefined, undefined, undefined, undefined, /* () */0)), React.createElement(Core.Button, MaterialUi_Button.makeProps("Login", undefined, /* Inherit */-72987685, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* () */0)))), undefined, undefined, /* Static */982536398, undefined, undefined, undefined, undefined, undefined, undefined, undefined, /* () */0)), React.createElement("div", undefined, String(state[/* scoreH */0])), React.createElement("button", {
                   onClick: (function (_event) {
                       return Curry._1(dispatch, /* AddPointsHometeam */0);
                     })

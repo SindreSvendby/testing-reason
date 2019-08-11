@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.2.0", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
   integrity sha512-28QvEGyQyNkB0/m2B4FU7IEZGK2NUrcMtT6BZEFALTguLk+AUT6ofsHtPk5QyjAdUkpMJ+/Em+quwz4HOt30AQ==
@@ -40,6 +40,13 @@
     prop-types "^15.7.2"
     react-transition-group "^4.0.0"
     warning "^4.0.1"
+
+"@material-ui/icons@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.2.1.tgz#fe2f1c4f60c24256d244a69d86d0c00e8ed4037e"
+  integrity sha512-FvSD5lUBJ66frI4l4AYAPy2CH14Zs2Dgm0o3oOMr33BdQtOAjCgbdOcvPBeaD1w6OQl31uNW3CKOE8xfPNxvUQ==
+  dependencies:
+    "@babel/runtime" "^7.2.0"
 
 "@material-ui/styles@^4.3.0":
   version "4.3.0"
@@ -90,6 +97,11 @@
     "@babel/runtime" "^7.4.4"
     prop-types "^15.7.2"
     react-is "^16.8.6"
+
+"@mscharley/bs-material-ui-icons@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@mscharley/bs-material-ui-icons/-/bs-material-ui-icons-1.0.1.tgz#a66affef6cbcee4fa0987cc26baab5165d41f373"
+  integrity sha512-cVwk4ZdRn+/spGfoiiKniFdsM/+4g+CGJHXjnouyBBOoRkxdDYCibzsnJeLLDF+rsHge8fiMEsfodD43d0j9wQ==
 
 "@types/events@*":
   version "3.0.0"
