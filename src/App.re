@@ -142,81 +142,12 @@ let reducer = (state, action) => {
 
 [@react.component]
 let make = () => {
-  let (state, dispatch) = React.useReducer(reducer, initialState);
-  <div>
-    <div className="test" />
-    <MaterialUi_AppBar position=`Static>
-      <MaterialUi_Toolbar>
-        <MaterialUi_IconButton edge=`Start color=`Inherit>
-          <MenuIcon />
-        </MaterialUi_IconButton>
-        <MaterialUi_Typography variant=`H6> "News" </MaterialUi_Typography>
-        <MaterialUi_Button color=`Inherit> "Login" </MaterialUi_Button>
-      </MaterialUi_Toolbar>
-    </MaterialUi_AppBar>
-    <MaterialUi_Grid `Container spacing=3>
-      <MaterialUi_Grid item xs=12>
-        <MaterialUi_Paper> "xs=12" </MaterialUi_Paper>
-      </MaterialUi_Grid>
-      <MaterialUi_Grid item xs=6>
-        <MaterialUi_Paper> "xs=6" </MaterialUi_Paper>
-      </MaterialUi_Grid>
-      <MaterialUi_Grid item xs=6>
-        <MaterialUi_Paper> "xs=6" </MaterialUi_Paper>
-      </MaterialUi_Grid>
+  <MaterialUi_Grid container=true spacing=V3>
+    <MaterialUi_Grid item=true xs=V6>
+      <MaterialUi_Paper> "xs=6" </MaterialUi_Paper>
     </MaterialUi_Grid>
-    <div> {str_int(state.scoreH)} </div>
-    <button onClick={_event => dispatch(AddPointsHometeam)}>
-      {str("Add Point Hometeam")}
-    </button>
-    <div> {str_int(state.scoreA)} </div>
-    <button onClick={_event => dispatch(AddPointsAwayteam)}>
-      {str("Add Point Awayteam")}
-    </button>
-    <form>
-      <label htmlFor="player1Hometeam"> {str("Player1 HomeTeam")} </label>
-      <input
-        name="player1Hometeam"
-        onChange={event =>
-          dispatch(
-            ChangeNamePlayer1Hometeam(ReactEvent.Form.target(event)##value),
-          )
-        }
-      />
-    </form>
-    <form>
-      <label htmlFor="player2Hometeam"> {str("Player2 HomeTeam")} </label>
-      <input
-        name="player2Hometeam"
-        onChange={event =>
-          dispatch(
-            ChangeNamePlayer2Awayteam(ReactEvent.Form.target(event)##value),
-          )
-        }
-      />
-    </form>
-    <form>
-      <label htmlFor="player1Awayteam"> {str("Player1 Awayteam")} </label>
-      <input
-        name="player1Awayteam"
-        onChange={event =>
-          dispatch(
-            ChangeNamePlayer1Awayteam(ReactEvent.Form.target(event)##value),
-          )
-        }
-      />
-    </form>
-    <MaterialUi_Typography variant=`H6> "Icon Types:" </MaterialUi_Typography>
-    <form>
-      <label htmlFor="player2Awayteam"> {str("Player2 Awayteam")} </label>
-      <input
-        name="player2Awayteam"
-        onChange={event =>
-          dispatch(
-            ChangeNamePlayer2Awayteam(ReactEvent.Form.target(event)##value),
-          )
-        }
-      />
-    </form>
-  </div>;
+    <MaterialUi_Grid item=true xs=V6>
+      <MaterialUi_Paper> "xs=6" </MaterialUi_Paper>
+    </MaterialUi_Grid>
+  </MaterialUi_Grid>;
 };
