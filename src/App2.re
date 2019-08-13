@@ -1,6 +1,4 @@
-open MscharleyBsMaterialUiIcons;
-
-module MenuIcon = Menu.Filled;
+module MenuIcon = MscharleyBsMaterialUiIcons.Menu.Filled;
 
 let str = ReasonReact.string;
 let str_int = number => str(string_of_int(number));
@@ -61,7 +59,7 @@ type state = {
 
 let initialState: state = {
   scoreA: 0,
-  scoreH: 1,
+  scoreH: 0,
   namePlayer1Hometeam: "",
   namePlayer2Hometeam: "",
   namePlayer1Awayteam: "",
@@ -142,12 +140,37 @@ let reducer = (state, action) => {
 
 [@react.component]
 let make = () => {
-  <MaterialUi_Grid container=true spacing=V3>
-    <MaterialUi_Grid item=true xs=V6>
-      <MaterialUi_Paper> "xs=6" </MaterialUi_Paper>
+  let (state, dispatch) = React.useReducer(reducer, initialState);
+  <div>
+    <div className="test" />
+    <MaterialUi_AppBar position=`Static>
+      <MaterialUi_Toolbar>
+        <MaterialUi_IconButton edge=`Start color=`Inherit>
+          <MenuIcon />
+        </MaterialUi_IconButton>
+        <MaterialUi_Typography variant=`H6> "News" </MaterialUi_Typography>
+        <MaterialUi_Button color=`Inherit> "Login" </MaterialUi_Button>
+      </MaterialUi_Toolbar>
+    </MaterialUi_AppBar>
+    <MaterialUi_Grid container=true spacing=V3>
+      <MaterialUi_Grid item=true xs=V6>
+        <MaterialUi_Paper>
+          <div> {str_int(state.scoreH)} </div>
+          <button onClick={_event => dispatch(AddPointsHometeam)}>
+            {str("Add Point Hometeam")}
+          </button>
+        </MaterialUi_Paper>
+      </MaterialUi_Grid>
+      <TeamSettingsAwayTeam state />
+      // <TeamSettingsHomeTeam dispatch state=currentState />
+      <MaterialUi_Grid item=true xs=V6>
+        <MaterialUi_Paper>
+          <div> {str_int(currentState.scoreA)} </div>
+          <button onClick={_event => dispatch(AddPointsAwayteam)}>
+            {str("Add Point Awayteam")}
+          </button>
+        </MaterialUi_Paper>
+      </MaterialUi_Grid>
     </MaterialUi_Grid>
-    <MaterialUi_Grid item=true xs=V6>
-      <MaterialUi_Paper> "xs=6" </MaterialUi_Paper>
-    </MaterialUi_Grid>
-  </MaterialUi_Grid>;
+  </div>;
 };

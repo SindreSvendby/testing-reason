@@ -1,5 +1,5 @@
 {
-  "name": "react-hooks",
+  "name": "testing-reason",
   "version": "0.1.0",
   "scripts": {
     "build": "bsb -make-world",
