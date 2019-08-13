@@ -7,3 +7,4 @@ npm-debug.log
 build
 yarn-error.log
 **/**.bs.js
+.vscode/
