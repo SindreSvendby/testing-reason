@@ -6,7 +6,6 @@ let reducer = (_state, _action) => {
 
 [@react.component]
 let make = () => {
-  <div>
-     <div className="test" /> <AnotherComponent state=1 /> </div>;
-    //let (state, dispatch) = React.useReducer(reducer, initialState);
+  let (state, _dispatch) = React.useReducer(reducer, initialState);
+  <div> <div className="test" /> <AnotherComponent state /> </div>;
 };
