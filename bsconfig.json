@@ -16,6 +16,7 @@
   "suffix": ".bs.js",
   "namespace": true,
   "bs-dependencies": [
+    "bs-webapi",
     "reason-react",
     "@jsiebern/bs-material-ui",
     "@mscharley/bs-material-ui-icons"

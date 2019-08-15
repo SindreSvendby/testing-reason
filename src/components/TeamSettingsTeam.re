@@ -61,7 +61,7 @@ let make = (~state: state, ~dispatch, ~player: player) => {
         name=fullId
         onChange={event => changeName(event, dispatch, player)}
       />
-      <input id={playerString ++ "Cam"} type_="file" accept="image/*" />
+      <PlayerPictureInput playerString=fullId />
     </form>
   </MaterialUi_Paper>;
 };
