@@ -8,3 +8,4 @@ build
 yarn-error.log
 **/**.bs.js
 .vscode/
+public
