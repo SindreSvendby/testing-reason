@@ -1,1 +1,1 @@
-ReactDOMRe.renderToElementWithId(<App2 />, "index2");
+ReactDOMRe.renderToElementWithId(<ScoreboardApp />, "index2");
