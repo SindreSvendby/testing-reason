@@ -26,33 +26,6 @@ let changeName = (event, dispatch, player) => {
 
 [@react.component]
 let make = (~state: state, ~dispatch, ~player: player) => {
-  let team =
-    switch (player) {
-    | Player1Hometeam
-    | Player2Hometeam => "Hometeam"
-    | Player1Awayteam
-    | Player2Awayteam => "Awayteam"
-    };
-
-  let name =
-    switch (player) {
-    | Player1Hometeam => state.namePlayer1Hometeam
-    | Player2Hometeam => state.namePlayer2Hometeam
-    | Player1Awayteam => state.namePlayer1Awayteam
-    | Player2Awayteam => state.namePlayer2Awayteam
-    };
-
-  let playerString =
-    switch (player) {
-    | Player1Hometeam
-    | Player1Awayteam => "player1"
-    | Player2Hometeam
-    | Player2Awayteam => "player2"
-    };
-
-  let playerStringCap = String.capitalize(playerString);
-  let fullId = playerString ++ team;
-
   <MaterialUi_Paper>
     <form>
       <label htmlFor=fullId> {str(playerStringCap ++ team)} </label>
@@ -61,7 +34,7 @@ let make = (~state: state, ~dispatch, ~player: player) => {
         name=fullId
         onChange={event => changeName(event, dispatch, player)}
       />
-      <PlayerPictureInput playerString=fullId />
+      <PlayerPictureInput state dispatch />
     </form>
   </MaterialUi_Paper>;
 };

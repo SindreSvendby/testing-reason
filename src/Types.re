@@ -3,11 +3,22 @@ type screen =
   | HometeamScreen
   | AwayScreen;
 
-type player =
+type players =
   | Player1Hometeam
   | Player2Hometeam
   | Player1Awayteam
   | Player2Awayteam;
+
+type jersey = {
+  number: int,
+  color: string,
+};
+
+type player = {
+  name: string,
+  picture: string,
+  jersey,
+};
 
 type order =
   | One
@@ -19,16 +30,9 @@ type order =
 type action =
   | AddPointsHometeam
   | AddPointsAwayteam
-  | ChangeNamePlayer1Hometeam(string)
-  | ChangeNamePlayer2Hometeam(string)
-  | ChangeNamePlayer1Awayteam(string)
-  | ChangeNamePlayer2Awayteam(string)
+  | ChangeName(player, players)
   | UNDO
   | AddNote(string)
-  | ChangeJerseyColorPlayer1Hometeam(string)
-  | ChangeJerseyColorPlayer2Hometeam(string)
-  | ChangeJerseyColorPlayer1Awayteam(string)
-  | ChangeJerseyColorPlayer2Awayteam(string)
   | ShowView(screen)
   | ServiceOrder(player);
 
@@ -36,14 +40,10 @@ type action =
 type state = {
   scoreH: int,
   scoreA: int,
-  namePlayer1Hometeam: string,
-  namePlayer2Hometeam: string,
-  namePlayer1Awayteam: string,
-  namePlayer2Awayteam: string,
-  jerseyColorPlayer1Hometeam: string,
-  jerseyColorPlayer2Hometeam: string,
-  jerseyColorPlayer1Awayteam: string,
-  jerseyColorPlayer2Awayteam: string,
+  player1Hometeam: player,
+  player2Hometeam: player,
+  player1Awayteam: player,
+  player2Awayteam: player,
   notes: list(string),
   actions: list(action),
   screen,
@@ -52,17 +52,49 @@ type state = {
   serviceOrderSet3: list(player),
 };
 
+type playerInfo = {
+  team: string,
+  name: string,
+  playerString: string,
+  fullId: string,
+};
+
 let initialState: state = {
   scoreA: 0,
   scoreH: 0,
-  namePlayer1Hometeam: "",
-  namePlayer2Hometeam: "",
-  namePlayer1Awayteam: "",
-  namePlayer2Awayteam: "",
-  jerseyColorPlayer1Hometeam: "",
-  jerseyColorPlayer2Hometeam: "",
-  jerseyColorPlayer1Awayteam: "",
-  jerseyColorPlayer2Awayteam: "",
+  player1Hometeam: {
+    name: "player1",
+    picture: "",
+    jersey: {
+      number: 1,
+      color: "blue",
+    },
+  },
+  player2Hometeam: {
+    name: "player2",
+    picture: "",
+    jersey: {
+      number: 2,
+      color: "blue",
+    },
+  },
+  player1Awayteam: {
+    name: "player1",
+    picture: "",
+    jersey: {
+      number: 1,
+      color: "red",
+    },
+  },
+  player2Awayteam: {
+    name: "player2",
+    picture: "",
+    jersey: {
+      number: 1,
+      color: "blue",
+    },
+  },
+
   notes: [],
   actions: [],
   screen: GameScreen,
@@ -76,21 +108,15 @@ let reducer = (state, action) => {
   switch (action) {
   | AddPointsHometeam => {...state, scoreH: state.scoreH + 1}
   | AddPointsAwayteam => {...state, scoreA: state.scoreA + 1}
-  | ChangeNamePlayer1Hometeam(value) => {
-      ...state,
-      namePlayer1Hometeam: value,
-    }
-  | ChangeNamePlayer2Hometeam(value) => {
-      ...state,
-      namePlayer2Hometeam: value,
-    }
-  | ChangeNamePlayer1Awayteam(value) => {
-      ...state,
-      namePlayer1Awayteam: value,
-    }
-  | ChangeNamePlayer2Awayteam(value) => {
-      ...state,
-      namePlayer2Awayteam: value,
+  | ChangeName(name, player) =>
+    switch (player) {
+    | Player1Hometeam => {
+        ...state,
+        player1Hometeam: {
+          ...state.player1Hometeam,
+          name: value,
+        },
+      }
     }
   | ChangeJerseyColorPlayer1Hometeam(value) => {
       ...state,
