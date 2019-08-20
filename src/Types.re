@@ -26,15 +26,23 @@ type order =
   | Three
   | Four;
 
+type page = 
+  | GamePage
+  | EditHP1Page
+  | EditHP2Page
+  | EditAP1Page
+  | EditAP2Page
+
 /* Action declaration */
 type action =
   | AddPointsHometeam
   | AddPointsAwayteam
-  | ChangeName(player, players)
+  | ChangeName(string, players)
+  | ChangeJersey(jersey, players)
   | UNDO
   | AddNote(string)
   | ShowView(screen)
-  | ServiceOrder(player);
+  | ServiceOrder(players);
 
 /* State declaration */
 type state = {
@@ -47,16 +55,17 @@ type state = {
   notes: list(string),
   actions: list(action),
   screen,
-  serviceOrderSet1: list(player),
-  serviceOrderSet2: list(player),
-  serviceOrderSet3: list(player),
+  serviceOrderSet1: list(players),
+  serviceOrderSet2: list(players),
+  serviceOrderSet3: list(players),
 };
 
 type playerInfo = {
   team: string,
-  name: string,
   playerString: string,
+  playerStringCap: string, 
   fullId: string,
+  player: player,
 };
 
 let initialState: state = {
@@ -90,7 +99,7 @@ let initialState: state = {
     name: "player2",
     picture: "",
     jersey: {
-      number: 1,
+      number: 2,
       color: "blue",
     },
   },
@@ -104,7 +113,6 @@ let initialState: state = {
 };
 
 let reducer = (state, action) => {
-  Js.log(state);
   switch (action) {
   | AddPointsHometeam => {...state, scoreH: state.scoreH + 1}
   | AddPointsAwayteam => {...state, scoreA: state.scoreA + 1}
@@ -114,28 +122,64 @@ let reducer = (state, action) => {
         ...state,
         player1Hometeam: {
           ...state.player1Hometeam,
-          name: value,
+          name: name,
+        },
+      }
+          | Player2Hometeam => {
+        ...state,
+        player2Hometeam: {
+          ...state.player2Hometeam,
+          name: name,
+        },
+      }
+          | Player1Awayteam => {
+        ...state,
+        player1Awayteam: {
+          ...state.player1Awayteam,
+          name: name,
+        },
+      }
+          | Player2Awayteam => {
+        ...state,
+        player2Awayteam: {
+          ...state.player2Awayteam,
+          name: name,
         },
       }
     }
-  | ChangeJerseyColorPlayer1Hometeam(value) => {
+  | ChangeJersey(jersey, player) => 
+    switch (player) {
+     | Player1Hometeam => {
       ...state,
-      jerseyColorPlayer1Hometeam: value,
-    }
-  | ChangeJerseyColorPlayer2Hometeam(value) => {
+      player1Hometeam: {
+          ...state.player1Hometeam,
+          jersey: jersey,
+        },
+     }
+      | Player2Hometeam => {
       ...state,
-      jerseyColorPlayer2Hometeam: value,
-    }
-  | ChangeJerseyColorPlayer1Awayteam(value) => {
+      player2Hometeam: {
+          ...state.player2Hometeam,
+          jersey: jersey,
+        },
+             }
+      | Player1Awayteam => {
       ...state,
-      jerseyColorPlayer1Awayteam: value,
-    }
-  | ChangeJerseyColorPlayer2Awayteam(value) => {
+      player1Awayteam: {
+          ...state.player1Awayteam,
+          jersey: jersey,
+        },
+             }
+      | Player2Awayteam => {
       ...state,
-      jerseyColorPlayer2Awayteam: value,
-    }
+      player2Awayteam: {
+          ...state.player2Awayteam,
+          jersey: jersey,
+        },
+             }
+    }  
   | UNDO => {...state, actions: [UNDO, ...state.actions]}
-  | AddNote(value) => {...state, jerseyColorPlayer2Awayteam: value}
+  | AddNote(value) => {...state, notes: [value, ...state.notes]}
   | ServiceOrder(player) =>
     switch (player) {
     | Player1Hometeam => {
