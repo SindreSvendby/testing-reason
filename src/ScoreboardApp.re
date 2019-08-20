@@ -34,7 +34,7 @@ let showFab = (index: int) => {
   };
 };
 
-let setHeight = ReactDOMRe.Style.make(~height="100%", ());
+let setHeight = ReactDOMRe.Style.make(~minHeight="100vh", ());
 
 let indexToPage = (index: int): page =>
   switch (index) {

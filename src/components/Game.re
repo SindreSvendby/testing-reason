@@ -8,8 +8,8 @@ module UndoIcon = MscharleyBsMaterialUiIcons.Undo.TwoTone;
 let showHomeFab = (~dispatch, ~score: int) => {
   <MaterialUi_Fab
     onClick={_event => dispatch(AddPointsHometeam)}
-    style={ReactDOMRe.Style.make// ~position="absolute",
-                                () // ~right="20%",
+    style={ReactDOMRe.Style.make// ~right="20%",
+                                () // ~position="absolute",
                                 // ~bottom="25%",
 }>
     {str_int(score)}
@@ -19,9 +19,9 @@ let showHomeFab = (~dispatch, ~score: int) => {
 let showUndoFab = (~dispatch) => {
   <MaterialUi_Fab
     onClick={_event => dispatch(UNDO)}
-    style={ReactDOMRe.Style.make// ~position="absolute",
-                                () // ~left="50%",
- // ~right="50%",
+    style={ReactDOMRe.Style.make// ~left="50%",
+                                () // ~right="50%",
+ // ~position="absolute",
                                 // ~bottom="15%",
 }>
     <UndoIcon />
@@ -31,8 +31,8 @@ let showUndoFab = (~dispatch) => {
 let showAwayFab = (~dispatch, ~score: int) => {
   <MaterialUi_Fab
     onClick={_event => dispatch(AddPointsAwayteam)}
-    style={ReactDOMRe.Style.make// ~position="absolute",
-                                () // ~left="20px",
+    style={ReactDOMRe.Style.make// ~left="20px",
+                                () // ~position="absolute",
                                 // ~bottom="270px",
 }>
     {str_int(score)}
@@ -42,7 +42,7 @@ let showAwayFab = (~dispatch, ~score: int) => {
 let setHeight = ReactDOMRe.Style.make(~height="100%", ());
 
 let setConteinerFabStyle =
-  ReactDOMRe.Style.make(~position="absolute", ~bottom="15%", ());
+  ReactDOMRe.Style.make(~position="absolute", ~bottom="20%", ());
 
 [@react.component]
 let make = (~state: state, ~dispatch) => {
@@ -55,26 +55,6 @@ let make = (~state: state, ~dispatch) => {
     <MaterialUi_Grid container=true>
       <MaterialUi_Grid item=true xs=V12>
         <Avatar playerInfo picture="" />
-      </MaterialUi_Grid>
-      <MaterialUi_Grid container=true>
-        <MaterialUi_Grid item=true xs=V6>
-          <MaterialUi_Paper>
-            <MaterialUi_Grid container=true justify=`Center alignItems=`Center>
-              <MaterialUi_Typography variant=`H1>
-                {str_int(state.scoreH)}
-              </MaterialUi_Typography>
-            </MaterialUi_Grid>
-          </MaterialUi_Paper>
-        </MaterialUi_Grid>
-        <MaterialUi_Grid item=true xs=V6>
-          <MaterialUi_Paper>
-            <MaterialUi_Grid container=true justify=`Center alignItems=`Center>
-              <MaterialUi_Typography variant=`H1>
-                {str_int(state.scoreA)}
-              </MaterialUi_Typography>
-            </MaterialUi_Grid>
-          </MaterialUi_Paper>
-        </MaterialUi_Grid>
       </MaterialUi_Grid>
     </MaterialUi_Grid>
     <MaterialUi_Grid
