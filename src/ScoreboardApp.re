@@ -1,4 +1,6 @@
+[%%debugger.chrome];
 open Types;
+open PlayerInfo;
 
 module MenuIcon = MscharleyBsMaterialUiIcons.RadioButtonUnchecked.Filled;
 module KeyboardArrowRight = MscharleyBsMaterialUiIcons.KeyboardArrowRight.Outlined;
@@ -18,11 +20,15 @@ let styleStepper =
     (),
   );
 
-let showFab = (index: int) => {
-  switch (index) {
-  | 0 => React.string("")
-  | _ =>
+let showEditFab = (~page: page, ~dispatch) => {
+  switch (page) {
+  | GamePage => React.string("")
+  | EditHP1Page
+  | EditHP2Page
+  | EditAP1Page
+  | EditAP2Page =>
     <MaterialUi_Fab
+      onClick={_event => dispatch(Edit(Player))}
       style={ReactDOMRe.Style.make(
         ~position="absolute",
         ~right="20px",
@@ -36,23 +42,12 @@ let showFab = (index: int) => {
 
 let setHeight = ReactDOMRe.Style.make(~minHeight="100vh", ());
 
-let indexToPage = (index: int): page =>
-  switch (index) {
-  | 0 => GamePage
-  | 1 => EditHP1Page
-  | 2 => EditHP2Page
-  | 3 => EditAP1Page
-  | 4 => EditAP2Page
-  | _ => GamePage
-  };
-
 let pageToTitle = (~state: state, ~player: players, ~page: page): string => {
   switch (page) {
   | EditHP1Page
   | EditHP2Page
   | EditAP1Page
   | EditAP2Page =>
-    let inde = PlayerInfo.info(~playerType=Player1Hometeam, ~state);
     let info = PlayerInfo.info(~playerType=player, ~state);
     let title = {
       info.team ++ " - " ++ info.playerStringCap;
@@ -62,27 +57,19 @@ let pageToTitle = (~state: state, ~player: players, ~page: page): string => {
   };
 };
 
-let pageToPlayer = (page: page) =>
-  switch (page) {
-  | EditHP1Page => Player1Hometeam
-  | EditHP2Page => Player2Hometeam
-  | EditAP1Page => Player1Awayteam
-  | EditAP2Page => Player2Awayteam
-  | _ =>
-    Js.log("Error: pageToPlayer failed, falback to Player1Hometeam");
-    Player1Hometeam;
-  };
-
 [@react.component]
 let make = () => {
   let (state, dispatch) =
     React.useReducer(Types.reducer, Types.initialState);
   let (index, setIndex) = React.useState(() => 0);
-  let handleChangeIndex = index => setIndex(_ => index);
+  let handleChangeIndex = (index, _, _) => setIndex(_ => index);
   let page = indexToPage(index);
   let player = pageToPlayer(page);
+  Js.log("Player:");
+  Js.log(player);
+  Js.log("index:" ++ string_of_int(index));
   let title = pageToTitle(~state, ~player, ~page);
-  let fab = showFab(index);
+  let fab = showEditFab(~page, ~dispatch);
   //TODO: fix hardcoded value
 
   let mobileStepper =
@@ -94,17 +81,18 @@ let make = () => {
       activeStep={`Int(index)}
       nextButton={
         <MaterialUi_Button size=`Small disabled=false>
-          {ReasonReact.string("Next")}
+          "Next"->ReasonReact.string
           <KeyboardArrowRight />
         </MaterialUi_Button>
       }
       backButton={
         <MaterialUi_Button size=`Small disabled=false>
           <KeyboardArrowLeft />
-          {ReasonReact.string("Back")}
+          "Back"->ReasonReact.string
         </MaterialUi_Button>
       }
     />;
+
   <React.Fragment>
     <MaterialUi_CssBaseline />
     <AppBar title />
@@ -115,10 +103,10 @@ let make = () => {
       index
       onChangeIndex=handleChangeIndex>
       <Game state dispatch />
-      <TeamSettingsTeam state dispatch player=Player1Hometeam />
-      <TeamSettingsTeam state dispatch player=Player2Hometeam />
-      <TeamSettingsTeam state dispatch player=Player1Awayteam />
-      <TeamSettingsTeam state dispatch player=Player2Awayteam />
+      <TeamSettingsTeam state dispatch player=Player1Hometeam index />
+      <TeamSettingsTeam state dispatch player=Player2Hometeam index />
+      <TeamSettingsTeam state dispatch player=Player1Awayteam index />
+      <TeamSettingsTeam state dispatch player=Player2Awayteam index />
     </ReactSwipeableViews>
     fab
     mobileStepper

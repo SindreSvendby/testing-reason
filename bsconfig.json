@@ -1,7 +1,10 @@
 {
   "name": "testing-reason",
   "reason": {
-    "react-jsx": 3
+    "react-jsx": 3,
+    "bsc-flags": [
+      "-bs-g"
+    ]
   },
   "sources": {
     "dir": "src",
@@ -18,6 +21,7 @@
   "bs-dependencies": [
     "bs-webapi",
     "reason-react",
+    "bs-react-swipeable-views",
     "@jsiebern/bs-material-ui",
     "@mscharley/bs-material-ui-icons"
   ],

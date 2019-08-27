@@ -6,35 +6,19 @@ let str_int = number => str(string_of_int(number));
 module UndoIcon = MscharleyBsMaterialUiIcons.Undo.TwoTone;
 
 let showHomeFab = (~dispatch, ~score: int) => {
-  <MaterialUi_Fab
-    onClick={_event => dispatch(AddPointsHometeam)}
-    style={ReactDOMRe.Style.make// ~right="20%",
-                                () // ~position="absolute",
-                                // ~bottom="25%",
-}>
+  <MaterialUi_Fab size=`Large onClick={_event => dispatch(AddPointsHometeam)}>
     {str_int(score)}
   </MaterialUi_Fab>;
 };
 
 let showUndoFab = (~dispatch) => {
-  <MaterialUi_Fab
-    onClick={_event => dispatch(UNDO)}
-    style={ReactDOMRe.Style.make// ~left="50%",
-                                () // ~right="50%",
- // ~position="absolute",
-                                // ~bottom="15%",
-}>
+  <MaterialUi_Fab size=`Medium onClick={_event => dispatch(UNDO)}>
     <UndoIcon />
   </MaterialUi_Fab>;
 };
 
 let showAwayFab = (~dispatch, ~score: int) => {
-  <MaterialUi_Fab
-    onClick={_event => dispatch(AddPointsAwayteam)}
-    style={ReactDOMRe.Style.make// ~left="20px",
-                                () // ~position="absolute",
-                                // ~bottom="270px",
-}>
+  <MaterialUi_Fab size=`Large onClick={_event => dispatch(AddPointsAwayteam)}>
     {str_int(score)}
   </MaterialUi_Fab>;
 };
@@ -52,9 +36,16 @@ let make = (~state: state, ~dispatch) => {
   let undoFab = showUndoFab(~dispatch);
 
   <main>
-    <MaterialUi_Grid container=true>
+    <MaterialUi_Grid alignItems=`Center container=true>
       <MaterialUi_Grid item=true xs=V12>
-        <Avatar playerInfo picture="" />
+        <MaterialUi_Paper>
+          <Avatar playerInfo picture="" />
+          <MaterialUi_Grid justify=`Center alignItems=`Center container=true>
+            <MaterialUi_Typography>
+              {str("Player1 to serve for the first time ")}
+            </MaterialUi_Typography>
+          </MaterialUi_Grid>
+        </MaterialUi_Paper>
       </MaterialUi_Grid>
     </MaterialUi_Grid>
     <MaterialUi_Grid

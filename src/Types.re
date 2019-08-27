@@ -1,8 +1,3 @@
-type screen =
-  | GameScreen
-  | HometeamScreen
-  | AwayScreen;
-
 type players =
   | Player1Hometeam
   | Player2Hometeam
@@ -26,12 +21,18 @@ type order =
   | Three
   | Four;
 
-type page = 
+type page =
   | GamePage
   | EditHP1Page
   | EditHP2Page
   | EditAP1Page
-  | EditAP2Page
+  | EditAP2Page;
+
+type editPlayer =
+  | Player
+  | Picture
+  | Jersey
+  | EditNone;
 
 /* Action declaration */
 type action =
@@ -41,8 +42,8 @@ type action =
   | ChangeJersey(jersey, players)
   | UNDO
   | AddNote(string)
-  | ShowView(screen)
-  | ServiceOrder(players);
+  | ServiceOrder(players)
+  | Edit(editPlayer);
 
 /* State declaration */
 type state = {
@@ -54,7 +55,7 @@ type state = {
   player2Awayteam: player,
   notes: list(string),
   actions: list(action),
-  screen,
+  edit: editPlayer,
   serviceOrderSet1: list(players),
   serviceOrderSet2: list(players),
   serviceOrderSet3: list(players),
@@ -63,9 +64,9 @@ type state = {
 type playerInfo = {
   team: string,
   playerString: string,
-  playerStringCap: string, 
+  playerStringCap: string,
   fullId: string,
-  player: player,
+  player,
 };
 
 let initialState: state = {
@@ -106,99 +107,102 @@ let initialState: state = {
 
   notes: [],
   actions: [],
-  screen: GameScreen,
+  edit: EditNone,
   serviceOrderSet1: [],
   serviceOrderSet2: [],
   serviceOrderSet3: [],
 };
 
 let reducer = (state, action) => {
-  switch (action) {
-  | AddPointsHometeam => {...state, scoreH: state.scoreH + 1}
-  | AddPointsAwayteam => {...state, scoreA: state.scoreA + 1}
-  | ChangeName(name, player) =>
-    switch (player) {
-    | Player1Hometeam => {
-        ...state,
-        player1Hometeam: {
-          ...state.player1Hometeam,
-          name: name,
-        },
-      }
-          | Player2Hometeam => {
-        ...state,
-        player2Hometeam: {
-          ...state.player2Hometeam,
-          name: name,
-        },
-      }
-          | Player1Awayteam => {
-        ...state,
-        player1Awayteam: {
-          ...state.player1Awayteam,
-          name: name,
-        },
-      }
-          | Player2Awayteam => {
-        ...state,
-        player2Awayteam: {
-          ...state.player2Awayteam,
-          name: name,
-        },
-      }
-    }
-  | ChangeJersey(jersey, player) => 
-    switch (player) {
-     | Player1Hometeam => {
-      ...state,
-      player1Hometeam: {
-          ...state.player1Hometeam,
-          jersey: jersey,
-        },
-     }
+  let state =
+    switch (action) {
+    | AddPointsHometeam => {...state, scoreH: state.scoreH + 1}
+    | AddPointsAwayteam => {...state, scoreA: state.scoreA + 1}
+    | ChangeName(name, player) =>
+      switch (player) {
+      | Player1Hometeam => {
+          ...state,
+          player1Hometeam: {
+            ...state.player1Hometeam,
+            name,
+          },
+        }
       | Player2Hometeam => {
-      ...state,
-      player2Hometeam: {
-          ...state.player2Hometeam,
-          jersey: jersey,
-        },
-             }
+          ...state,
+          player2Hometeam: {
+            ...state.player2Hometeam,
+            name,
+          },
+        }
       | Player1Awayteam => {
-      ...state,
-      player1Awayteam: {
-          ...state.player1Awayteam,
-          jersey: jersey,
-        },
-             }
+          ...state,
+          player1Awayteam: {
+            ...state.player1Awayteam,
+            name,
+          },
+        }
       | Player2Awayteam => {
-      ...state,
-      player2Awayteam: {
-          ...state.player2Awayteam,
-          jersey: jersey,
-        },
-             }
-    }  
-  | UNDO => {...state, actions: [UNDO, ...state.actions]}
-  | AddNote(value) => {...state, notes: [value, ...state.notes]}
-  | ServiceOrder(player) =>
-    switch (player) {
-    | Player1Hometeam => {
-        ...state,
-        serviceOrderSet1: [Player2Hometeam, ...state.serviceOrderSet1],
+          ...state,
+          player2Awayteam: {
+            ...state.player2Awayteam,
+            name,
+          },
+        }
       }
-    | Player2Hometeam => {
-        ...state,
-        serviceOrderSet1: [Player2Hometeam, ...state.serviceOrderSet1],
+    | ChangeJersey(jersey, player) =>
+      switch (player) {
+      | Player1Hometeam => {
+          ...state,
+          player1Hometeam: {
+            ...state.player1Hometeam,
+            jersey,
+          },
+        }
+      | Player2Hometeam => {
+          ...state,
+          player2Hometeam: {
+            ...state.player2Hometeam,
+            jersey,
+          },
+        }
+      | Player1Awayteam => {
+          ...state,
+          player1Awayteam: {
+            ...state.player1Awayteam,
+            jersey,
+          },
+        }
+      | Player2Awayteam => {
+          ...state,
+          player2Awayteam: {
+            ...state.player2Awayteam,
+            jersey,
+          },
+        }
       }
-    | Player1Awayteam => {
-        ...state,
-        serviceOrderSet1: [Player1Awayteam, ...state.serviceOrderSet1],
+    | UNDO => {...state, actions: [UNDO, ...state.actions]}
+    | AddNote(value) => {...state, notes: [value, ...state.notes]}
+    | ServiceOrder(player) =>
+      switch (player) {
+      | Player1Hometeam => {
+          ...state,
+          serviceOrderSet1: [Player2Hometeam, ...state.serviceOrderSet1],
+        }
+      | Player2Hometeam => {
+          ...state,
+          serviceOrderSet1: [Player2Hometeam, ...state.serviceOrderSet1],
+        }
+      | Player1Awayteam => {
+          ...state,
+          serviceOrderSet1: [Player1Awayteam, ...state.serviceOrderSet1],
+        }
+      | Player2Awayteam => {
+          ...state,
+          serviceOrderSet1: [Player2Awayteam, ...state.serviceOrderSet1],
+        }
       }
-    | Player2Awayteam => {
-        ...state,
-        serviceOrderSet1: [Player2Awayteam, ...state.serviceOrderSet1],
-      }
-    }
-  | ShowView(screen) => {...state, screen}
-  };
+    | Edit(editPlayer) => {...state, edit: editPlayer}
+    };
+  Js.log(state);
+  state;
 };
